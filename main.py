@@ -1,6 +1,5 @@
 import datetime
 import pandas
-from pprint import pprint
 import collections
 
 from http.server import HTTPServer, SimpleHTTPRequestHandler
@@ -15,16 +14,16 @@ env = Environment(
 template = env.get_template('template.html')
 
 DATA_OF_FOUNDATION = datetime.datetime(year=1920, month=1, day=1, hour=0)
+
 today = datetime.date.today()
 winery_age = today.year - DATA_OF_FOUNDATION.year
 
-excel_data_products = pandas.read_excel('wine2.xlsx')
+excel_data_products = pandas.read_excel('wine3.xlsx')
 
 products = excel_data_products.to_dict(orient='record')
 
 products_by_category = collections.defaultdict(list)
 
-prod = collections.defaultdict(list)
 
 for wine in products:
     category = wine['Категория']
