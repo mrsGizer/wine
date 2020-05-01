@@ -1,3 +1,4 @@
-env/
-.vscode/
-
+env
+*.json
+__pycache__
+*.DS_Store
