@@ -1,6 +1,9 @@
+import argparse
+import collections
 import datetime
 import pandas
-import collections
+
+from settings import DATA_FILE
 
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 
@@ -18,7 +21,21 @@ DATA_OF_FOUNDATION = datetime.datetime(year=1920, month=1, day=1, hour=0)
 today = datetime.date.today()
 winery_age = today.year - DATA_OF_FOUNDATION.year
 
-excel_data_products = pandas.read_excel('wine3.xlsx')
+
+def createParser():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('filename', nargs='?', default=DATA_FILE)
+    return parser
+
+
+parser = createParser()
+namespace = parser.parse_args()
+
+
+if namespace.filename:
+    excel_data_products = pandas.read_excel(namespace.filename)
+else:
+    excel_data_products = pandas.read_excel(DATA_FILE)
 
 products = excel_data_products.to_dict(orient='record')
 
